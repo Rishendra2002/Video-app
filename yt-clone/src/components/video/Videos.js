@@ -1,36 +1,44 @@
 import React, { useEffect, useState } from "react";
 
-function NewsComponent() {
-  const [news, setNews] = useState([]);
+function Video() {
+  
+  const [videos, setVideos] = useState([]);
+
   useEffect(() => {
-    fetch('https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=')
+    fetch('videoData.json')
     .then(res => res.json())
-    .then(data => setNews(data.articles))
+    .then(data => setVideos(data))
     .catch(err => console.error(err))
   }, []);
+
+
   return (
     <div>
       <div className="container">
         <div className="row">
-            {
-                news.map((value, key) => (
-                    <div key={key} className="col-2">
-                        <a href={value.url}>
-                            <div className="card">
-                                <img src={value.urlToImage} alt={value.title}/>
-                                <div className="card-body">
-                                    <h4 className="card-title">{value.author}</h4>
-                                    <p className="card-text">{value.title}</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                ))
-            }
+          {videos.map((video, key) => (
+            <div key={key} className="col-md-4 mb-2">
+              <a to={`https://youtube.com/watch?v=${video.img_id}`}>
+                <div className="card">
+                  <img
+                    src={`https://img.youtube.com/vi/${video.img_id}/0.jpg`}
+                    alt={video.title}
+                  />
+                  <div className="card-body">
+                    <h4 className="card-title">{video.title}</h4>
+                    <p className="card-text">{video.channelName}</p>
+                    <p className="card-text">
+                      {video.viewsCount} views - {video.duration}m
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
-export default NewsComponent;
+export default Video;

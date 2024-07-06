@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 function NewsComponent() {
   const [news, setNews] = useState([]);
   useEffect(() => {
-    fetch('https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=')
+    fetch('https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=8181e86c756840bc945d0cea96b77073')
     .then(res => res.json())
-    .then(data => setNews(data.articles))
+    .then(data => console.log(data))
     .catch(err => console.error(err))
   }, []);
   return (
